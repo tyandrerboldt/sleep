@@ -3,7 +3,9 @@ package com.tyandrerboldt.sleep.entities;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,46 +13,46 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_music")
+@Table(name = "tb_music", uniqueConstraints = @UniqueConstraint(columnNames = {"uuid"}))
 public class Music implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Size(max = 36)
-	@NotBlank
 	private String uuid;
 	@Size(max = 100)
 	@NotBlank
 	private String title;
+	@Column(columnDefinition = "TEXT")
 	private String description;
 	@NotNull
 	private Double duration;
 	@NotNull
 	private String filePath;
-	private String imgPath;
-
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
+	private String imagePath;
 
 	@ManyToMany
+	@JoinTable(name = "tb_music_category", joinColumns = @JoinColumn(name = "music_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	Set<Category> categories = new HashSet<>();
+	
+	@ManyToMany
 	@JoinTable(name = "tb_music_author", joinColumns = @JoinColumn(name = "music_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
-	Set<Category> authors = new HashSet<>();
+	Set<Author> authors = new HashSet<>();
 
 	public Music() {
 	}
 
 	public Music(Long id, String uuid, String title, String description, Double duration, String filePath,
-			String imgPath, Category category) {
+			String imagePath) {
 		super();
 		this.id = id;
 		this.uuid = uuid;
@@ -58,8 +60,12 @@ public class Music implements Serializable {
 		this.description = description;
 		this.duration = duration;
 		this.filePath = filePath;
-		this.imgPath = imgPath;
-		this.category = category;
+		this.imagePath = imagePath;
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		uuid = UUID.randomUUID().toString();
 	}
 
 	public Long getId() {
@@ -110,23 +116,19 @@ public class Music implements Serializable {
 		this.filePath = filePath;
 	}
 
-	public String getImgPath() {
-		return imgPath;
+	public String getImagePath() {
+		return imagePath;
 	}
 
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
-	public Category getCategory() {
-		return category;
+	public Set<Category> getCategories() {
+		return categories;
 	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public Set<Category> getAuthors() {
+	
+	public Set<Author> getAuthors() {
 		return authors;
 	}
 
