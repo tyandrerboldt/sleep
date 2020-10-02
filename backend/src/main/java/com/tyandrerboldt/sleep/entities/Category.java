@@ -1,4 +1,4 @@
-package com.tyandrerboldt.sleep.domain.entities;
+package com.tyandrerboldt.sleep.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

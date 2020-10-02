@@ -1,4 +1,4 @@
-package com.tyandrerboldt.sleep.api.controllers;
+package com.tyandrerboldt.sleep.resources;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tyandrerboldt.sleep.domain.entities.Category;
-import com.tyandrerboldt.sleep.domain.repositories.CategoryRepository;
+import com.tyandrerboldt.sleep.entities.Category;
+import com.tyandrerboldt.sleep.repositories.CategoryRepository;
 
 @RestController
 @RequestMapping("/categories")
