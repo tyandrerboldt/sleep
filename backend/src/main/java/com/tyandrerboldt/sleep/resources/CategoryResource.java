@@ -12,7 +12,7 @@ import com.tyandrerboldt.sleep.repositories.CategoryRepository;
 
 @RestController
 @RequestMapping("/categories")
-public class CategoryController {
+public class CategoryResource {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
