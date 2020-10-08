@@ -1,7 +1,8 @@
 package com.tyandrerboldt.sleep.dto;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import com.tyandrerboldt.sleep.entities.Author;
@@ -18,8 +19,8 @@ public class MusicDTO implements Serializable {
 	private Double duration;
 	private String filePath;
 	private String imagePath;
-	Set<CategoryDTO> categories = new HashSet<>();
-	Set<AuthorDTO> authors = new HashSet<>();
+	List<CategoryDTO> categories = new ArrayList<>();
+	List<AuthorDTO> authors = new ArrayList<>();
 
 	public MusicDTO() {
 	}
@@ -35,7 +36,7 @@ public class MusicDTO implements Serializable {
 		this.imagePath = music.getImagePath();
 	}
 
-	public MusicDTO(Music music, Set<Category> categories, Set<Author> authors) {
+	public MusicDTO(Music music, Set<Category> categories,  Set<Author> authors) {
 		this(music);
 		categories.forEach(category -> this.categories.add(new CategoryDTO(category)));
 		authors.forEach(author -> this.authors.add(new AuthorDTO(author)));
@@ -97,12 +98,20 @@ public class MusicDTO implements Serializable {
 		this.imagePath = imagePath;
 	}
 	
-	public Set<CategoryDTO> getCategories() {
+	public List<CategoryDTO> getCategories() {
 		return categories;
 	}
 	
-	public Set<AuthorDTO> getAuthors() {
+	public List<AuthorDTO> getAuthors() {
 		return authors;
+	}
+	
+	public void setCategories(List<CategoryDTO> categories) {
+		this.categories = categories;
+	}
+	
+	public void setAuthors(List<AuthorDTO> authors) {
+		this.authors = authors;
 	}
 
 }

@@ -1,11 +1,15 @@
 package com.tyandrerboldt.sleep.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -30,6 +34,9 @@ public class Category implements Serializable {
 	@NotBlank
 	@Size(max = 45)
 	private String icon;
+	
+	@ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+	Set<Music> musics = new HashSet<>();
 
 	public Category() {
 	}
@@ -72,6 +79,10 @@ public class Category implements Serializable {
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+	
+	public Set<Music> getMusics() {
+		return musics;
 	}
 
 	@Override

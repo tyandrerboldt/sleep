@@ -14,6 +14,7 @@ public class AuthorDTO implements Serializable {
 	}
 
 	public AuthorDTO(Author author) {
+		super();
 		this.id = author.getId();
 		this.name = author.getName();
 	}

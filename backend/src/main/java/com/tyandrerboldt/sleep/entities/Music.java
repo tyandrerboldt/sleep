@@ -41,11 +41,15 @@ public class Music implements Serializable {
 	private String imagePath;
 
 	@ManyToMany
-	@JoinTable(name = "tb_music_category", joinColumns = @JoinColumn(name = "music_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JoinTable(name = "tb_music_category", 
+		joinColumns = @JoinColumn(name = "music_id"), 
+		inverseJoinColumns = @JoinColumn(name = "category_id"))
 	Set<Category> categories = new HashSet<>();
 	
 	@ManyToMany
-	@JoinTable(name = "tb_music_author", joinColumns = @JoinColumn(name = "music_id"), inverseJoinColumns = @JoinColumn(name = "author_id"))
+	@JoinTable(name = "tb_music_author", 
+		joinColumns = @JoinColumn(name = "music_id"), 
+		inverseJoinColumns = @JoinColumn(name = "author_id"))
 	Set<Author> authors = new HashSet<>();
 
 	public Music() {
