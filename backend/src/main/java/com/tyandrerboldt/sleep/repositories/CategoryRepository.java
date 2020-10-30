@@ -12,6 +12,9 @@ import com.tyandrerboldt.sleep.entities.Category;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
+//	@Query("from Category category join fetch category.musics")
+//	List<Category> findAll();
+//	
 	@Query("from Category category join fetch category.musics where category.id = :categoryId")
 	Optional<Category> findCategoryWithMusics(@Param("categoryId") Long categoryId);
 

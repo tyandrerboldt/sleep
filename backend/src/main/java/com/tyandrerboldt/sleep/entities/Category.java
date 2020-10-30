@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +34,7 @@ public class Category implements Serializable {
 	@Size(max = 45)
 	private String icon;
 	
-	@ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "categories")
 	Set<Music> musics = new HashSet<>();
 
 	public Category() {
