@@ -3,11 +3,17 @@ import { StyleSheet, View, Text, Image, Animated } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler';
 import FadeIn from '../../core/components/animations/FadeIn';
 import Loop from '../../core/components/animations/Loop';
+import { useNavigation } from '@react-navigation/native';
 
 const imageWidth = 1000
 
 const Welcome = () => {
   const [showButton, setShowButton] = useState(false)
+  const navigation = useNavigation();
+
+  const handleOnPress = () => {
+    navigation.navigate('Home');
+  }
 
   useEffect(() => {
     Animated.delay(2000).start(delay => {
@@ -41,7 +47,7 @@ const Welcome = () => {
               width:'100%',
               alignItems: 'center'
             }}>
-            <RectButton style={styles.button} onPress={() => alert("Click")}>
+            <RectButton style={styles.button} onPress={handleOnPress}>
               <Text style={styles.buttonText}>
                 GET STARTED
               </Text>      
@@ -49,7 +55,7 @@ const Welcome = () => {
           </FadeIn>
         )}
       <Image 
-        source={require('../../core/assets/lua.png')}
+        source={require('../../core/assets/lua-no-effect.png')}
         style={styles.moon}
         />
       <Image 
@@ -88,8 +94,8 @@ const styles = StyleSheet.create({
     zIndex: -1,
     left: "15%",
     top: "3%",
-    width: 80,
-    height: 80,
+    width: 50,
+    height: 50,
   },
   title: {
     fontFamily: "Roboto_700Bold",
