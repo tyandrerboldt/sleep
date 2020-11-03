@@ -1,82 +1,53 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Text, Image, Animated } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler';
+import FadeIn from '../../core/components/animations/FadeIn';
+import Loop from '../../core/components/animations/Loop';
 
 const imageWidth = 1000
 
 const Welcome = () => {
-  const [nuvemX] = useState(new Animated.Value(-imageWidth));
-  const [buttonOpacity] = useState(new Animated.Value(0));
-  
+  const [showButton, setShowButton] = useState(false)
+
   useEffect(() => {
-    if(nuvemX){
-      startAnimation()
-      Animated.delay(2000).start(delay => {
-        delay.finished && Animated.timing(buttonOpacity, {
-          toValue: 1,
-          duration: 500,
-          useNativeDriver: true
-        }).start()
-      })
-    }
-  }, [])
-  
-  const startAnimation = () => {
-    nuvemX.setValue(-imageWidth)
-    Animated.sequence([
-      Animated.timing(nuvemX, {
-        toValue: imageWidth,
-        duration: 15000,
-        useNativeDriver: true
-      })
-    ]).start(anima => {
-      if(anima.finished){
-        startAnimation()
-      }
-    });
-    
-  }
+    Animated.delay(2000).start(delay => {
+      delay.finished && setShowButton(true)
+    })
+  }, [])  
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Sleep</Text>
       <Text style={styles.subtitle}>Explore the new king of sleep. It uses sound and vesualization to create perfect conditions for refreshing sleep.</Text>
-      <Animated.Image  
-        resizeMode="contain"      
-        style={{
-          position: "absolute",
+      <Loop
+        duration={15000}
+        startX={-imageWidth}
+        endX={imageWidth}
+        styles={{          
           width: imageWidth,
-          zIndex: -4,
-          transform: [{translateX: nuvemX}]
+          zIndex: -4
         }}
-        source={require('../../core/assets/nuvens.png')} />      
+      >
+        <Image resizeMode="contain" style={{width: imageWidth}} source={require('../../core/assets/nuvens.png')} />
+      </Loop>          
       <Image 
         source={require('../../core/assets/corujas.png')}
         style={styles.corujas}
         resizeMode="contain"
         />
-        <Animated.View
-          style={[
-            {
-              opacity: buttonOpacity,
-              transform: [
-                {
-                  scale: buttonOpacity.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0.85, 1]
-                  })
-                }
-              ]
-            },
-            styles.buttonContainer
-          ]}
-        >
-          <RectButton style={styles.button} onPress={() => alert("Click")}>
-            <Text style={styles.buttonText}>
-              GET STARTED
-            </Text>      
-          </RectButton>
-        </Animated.View>
+        {showButton && (
+          <FadeIn 
+            styles={{
+              width:'100%',
+              alignItems: 'center'
+            }}>
+            <RectButton style={styles.button} onPress={() => alert("Click")}>
+              <Text style={styles.buttonText}>
+                GET STARTED
+              </Text>      
+            </RectButton>
+          </FadeIn>
+        )}
       <Image 
         source={require('../../core/assets/lua.png')}
         style={styles.moon}
@@ -93,12 +64,7 @@ const Welcome = () => {
   )
 }
 
-const styles = StyleSheet.create({
-  buttonContainer: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-  },
+const styles = StyleSheet.create({  
   container: {
     flex: 1,
     justifyContent: "center",
