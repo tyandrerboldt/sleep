@@ -9,12 +9,14 @@ type Props = {
   active?: boolean;
   color?: string;
   mirrorX?: boolean;
+  onPress?: () => {} | void;
 }
 
-const NavItem = ({ name, text, color = "#98A1BD", active = false, mirrorX = false }:Props) => {
+const NavItem = ({ onPress, name, text, color = "#98A1BD", active = false, mirrorX = false }:Props) => {
+  
   return (
     <View style={styles.container}>
-      <RectButton style={[styles.button, (active) && {backgroundColor: '#8E97FD'}]}>
+      <RectButton onPress={onPress} style={[styles.button, (active) && {backgroundColor: '#8E97FD'}]}>
         <MaterialIcons 
           name={name} 
           size={25} 

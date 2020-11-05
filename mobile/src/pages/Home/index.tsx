@@ -9,12 +9,12 @@ import Footer from '../../core/components/Footer'
 const Home = () => {
   return (
     <View style={styles.container}>      
-      <Header
-        title="Sleep Stories"
-        subtitle="Soothing bedtime stories to help you fall into a deep and natural sleep"
-      />
-      <NavCategories />
       <ScrollView>
+        <Header
+          title="Sleep Stories"
+          subtitle="Soothing bedtime stories to help you fall into a deep and natural sleep"
+        />
+        <NavCategories />
         <View style={styles.content}>
           <RoudedBox 
             source={require('../../core/assets/samples/music-the-ocean-moon.png')}
@@ -28,6 +28,18 @@ const Home = () => {
           <RoundedItem 
             source={require('../../core/assets/samples/music-night-island.png')} 
             title="Night Island"
+            subtitle="45 min - Sleep Music"
+            padding={5}            
+          />                   
+          <RoundedItem 
+            source={require('../../core/assets/samples/music-sweet-sleep.png')} 
+            title="Sweet Sleep"
+            subtitle="45 min - Sleep Music"
+            padding={5}            
+          />                   
+          <RoundedItem 
+            source={require('../../core/assets/samples/music-good-night.png')} 
+            title="Good Night"
             subtitle="45 min - Sleep Music"
             padding={5}            
           />                   
